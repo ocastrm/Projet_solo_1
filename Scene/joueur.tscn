@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcf6mhl2mubir"]
+
+[ext_resource type="Texture2D" uid="uid://b72c86kdgrf13" path="res://Asset/Eléments/Joueur_idle1.png" id="1_gvkvn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vl7wj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gvkvn")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vl7wj"]
+radius = 24.0
+height = 74.0
+
+[node name="Joueur" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vl7wj")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vl7wj")

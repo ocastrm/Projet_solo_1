@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqfw3qfm5y6kb"]
+
+[ext_resource type="Texture2D" uid="uid://cqtqtuq7enelk" path="res://Asset/Eléments/Plateforme_v.01.png" id="1_jo3fp"]
+[ext_resource type="Script" uid="uid://co20lcumg3okl" path="res://Scene/Niveau/Element_de_niveau/Script/plateforme.gd" id="1_wiiqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wiiqw"]
+size = Vector2(100, 10)
+
+[node name="Plateforme" type="CharacterBody2D"]
+z_as_relative = false
+collision_layer = 2
+script = ExtResource("1_wiiqw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_jo3fp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_wiiqw")

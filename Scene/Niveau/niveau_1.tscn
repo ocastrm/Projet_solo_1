@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://u7ettx1nfbjl"]
+
+[ext_resource type="PackedScene" uid="uid://dcf6mhl2mubir" path="res://Scene/joueur.tscn" id="1_gjrnc"]
+[ext_resource type="Script" uid="uid://8rg06v4t8pm6" path="res://Scene/Niveau/Script/niveau.gd" id="1_j62dv"]
+[ext_resource type="PackedScene" uid="uid://bqfw3qfm5y6kb" path="res://Scene/Niveau/Element_de_niveau/plateforme.tscn" id="2_m1cyu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1cyu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gjrnc"]
+
+[node name="Niveau 1" type="Node2D"]
+script = ExtResource("1_j62dv")
+plateforme_scene = ExtResource("2_m1cyu")
+
+[node name="Timer_apparition_plateforme" type="Timer" parent="."]
+
+[node name="Position_joueur" type="Marker2D" parent="."]
+position = Vector2(330, 1045)
+
+[node name="Position_plateforme" type="Marker2D" parent="."]
+position = Vector2(930, 1080)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(92, 1080)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_m1cyu")
+
+[node name="Repère_visuel_niveau" type="Sprite2D" parent="."]
+position = Vector2(540, 960)
+scale = Vector2(917, 526)
+texture = SubResource("PlaceholderTexture2D_gjrnc")
+
+[node name="Repère_visuel_plateforme" type="Sprite2D" parent="."]
+position = Vector2(540, 1080)
+scale = Vector2(917, 20)
+texture = SubResource("PlaceholderTexture2D_gjrnc")
+
+[node name="Joueur" parent="." instance=ExtResource("1_gjrnc")]
+texture_filter = 1
+
+[connection signal="timeout" from="Timer_apparition_plateforme" to="." method="_on_timer_apparition_plateforme_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
