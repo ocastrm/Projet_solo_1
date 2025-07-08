@@ -14,14 +14,18 @@ plateforme_scene = ExtResource("2_m1cyu")
 
 [node name="Timer_apparition_plateforme" type="Timer" parent="."]
 
+[node name="Timer_attente_plateforme" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [node name="Position_joueur" type="Marker2D" parent="."]
-position = Vector2(330, 1045)
+position = Vector2(330, 1005)
 
 [node name="Position_plateforme" type="Marker2D" parent="."]
 position = Vector2(930, 1080)
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(92, 1080)
+position = Vector2(70, 1080)
 collision_mask = 2
 metadata/_edit_group_ = true
 
@@ -29,17 +33,20 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_m1cyu")
 
 [node name="Repère_visuel_niveau" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(540, 960)
 scale = Vector2(917, 526)
 texture = SubResource("PlaceholderTexture2D_gjrnc")
 
 [node name="Repère_visuel_plateforme" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(540, 1080)
 scale = Vector2(917, 20)
 texture = SubResource("PlaceholderTexture2D_gjrnc")
 
 [node name="Joueur" parent="." instance=ExtResource("1_gjrnc")]
 texture_filter = 1
+scale = Vector2(2, 2)
 
 [connection signal="timeout" from="Timer_apparition_plateforme" to="." method="_on_timer_apparition_plateforme_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
