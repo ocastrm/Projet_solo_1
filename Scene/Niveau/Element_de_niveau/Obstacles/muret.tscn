@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ld65k4ylcnw"]
+
+[ext_resource type="Texture2D" uid="uid://c6ixkk6vc6w4c" path="res://Asset/Eléments/muret_v.01.png" id="1_2qt2u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_826l4"]
+size = Vector2(10, 18)
+
+[node name="Muret" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_2qt2u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_826l4")

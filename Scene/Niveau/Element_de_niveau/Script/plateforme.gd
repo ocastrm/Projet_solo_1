@@ -4,7 +4,7 @@ var taille = 100
 
 
 func _physics_process(delta: float) -> void:
-	if get_parent().find_child("Timer_attente_plateforme").is_stopped() :
+	if get_parent().find_child("Timer_attente_plateforme").is_stopped() and get_parent().demarrer == true :
 		avancer(delta)
 
 func avancer(delta: float):

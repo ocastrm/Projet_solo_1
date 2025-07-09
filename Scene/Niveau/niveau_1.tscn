@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://u7ettx1nfbjl"]
+[gd_scene load_steps=7 format=3 uid="uid://u7ettx1nfbjl"]
 
 [ext_resource type="PackedScene" uid="uid://dcf6mhl2mubir" path="res://Scene/joueur.tscn" id="1_gjrnc"]
 [ext_resource type="Script" uid="uid://8rg06v4t8pm6" path="res://Scene/Niveau/Script/niveau.gd" id="1_j62dv"]
 [ext_resource type="PackedScene" uid="uid://bqfw3qfm5y6kb" path="res://Scene/Niveau/Element_de_niveau/plateforme.tscn" id="2_m1cyu"]
+[ext_resource type="PackedScene" uid="uid://ber0bvccjpa3y" path="res://Scene/Niveau/Element_de_niveau/porte.tscn" id="3_dx10x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1cyu"]
 
@@ -11,11 +12,16 @@
 [node name="Niveau 1" type="Node2D"]
 script = ExtResource("1_j62dv")
 plateforme_scene = ExtResource("2_m1cyu")
+porte_scene = ExtResource("3_dx10x")
 
 [node name="Timer_apparition_plateforme" type="Timer" parent="."]
 
 [node name="Timer_attente_plateforme" type="Timer" parent="."]
 wait_time = 0.8
+one_shot = true
+
+[node name="Start_timer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="Position_joueur" type="Marker2D" parent="."]
@@ -49,4 +55,5 @@ texture_filter = 1
 scale = Vector2(2, 2)
 
 [connection signal="timeout" from="Timer_apparition_plateforme" to="." method="_on_timer_apparition_plateforme_timeout"]
+[connection signal="timeout" from="Start_timer" to="." method="_on_start_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
