@@ -3,8 +3,8 @@ extends Node2D
 @export var porte_scene :PackedScene
 @export var muret_scene :PackedScene
 var demarrer = false
-@export var vague = 10
-@export var bpm = 60
+@export var vague = 25
+@export var bpm = 120
 var vague_passe = 0
 
 func _ready() -> void:
@@ -15,19 +15,23 @@ func _process(_delta: float) -> void:
 
 func debut_jeux():
 	$Joueur.position = $Position_joueur.position
+	$Timer_apparition_plateforme.wait_time = 0.5
+	$Timer_attente_plateforme.wait_time = 0.4
+	$Timer_attente_plateforme.stop()
+	$Timer_apparition_plateforme.stop()
 	for i in range(8):
 		generer_plateforme(Vector2($Position_plateforme.global_position.x - i * 100,$Position_plateforme.global_position.y))
 		$Start_timer.start()
 		generer_porte($Position_joueur.global_position)
 
 func init_niveau():
+	demarrer = true
 	$Timer_apparition_plateforme.start()
 	$Timer_attente_plateforme.start()
-	demarrer = true
 
 func fin_niveau():
 	demarrer = false
-	recommencer_niveau()
+	call_deferred("recommencer_niveau")
 
 func generer_plateforme(Position):
 	var plateforme :CharacterBody2D = plateforme_scene.instantiate()
@@ -61,7 +65,7 @@ func faire_disparaitre_plateforme():
 	pass
 
 func recommencer_niveau():
-	get_tree().reload_current_scene()
+	get_tree().call_deferred("reload_current_scene")
 	
 	
 func _on_timer_apparition_plateforme_timeout() -> void:
@@ -79,9 +83,13 @@ func _on_timer_apparition_plateforme_timeout() -> void:
 
 func _on_start_timer_timeout() -> void:
 	init_niveau()
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	body.queue_free()
-
 func _on_timer_attente_plateforme_timeout() -> void:
 	verifier_action()
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	await $Timer_apparition_plateforme.timeout
+	body.queue_free()
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	await $Timer_apparition_plateforme.timeout
+	area.queue_free()

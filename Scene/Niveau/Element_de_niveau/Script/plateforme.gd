@@ -1,6 +1,6 @@
 extends CharacterBody2D
 var taille = 100
-@export var vitesse = 5
+@onready var vitesse = 10
 
 
 func _physics_process(delta: float) -> void:

@@ -1,6 +1,6 @@
 extends Area2D
 var taille = 100
-@export var vitesse = 5
+@onready var vitesse = get_parent().bpm / 12
 
 
 func _physics_process(delta: float) -> void:
