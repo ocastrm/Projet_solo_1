@@ -15,8 +15,8 @@ func _process(_delta: float) -> void:
 
 func debut_jeux():
 	$Joueur.position = $Position_joueur.position
-	$Timer_mouvement_plateforme.wait_time = 60.0 / float(bpm) * 0.2
-	$Timer_attente_plateforme.wait_time = 60.0 / float(bpm) * 0.8
+	$Timer_mouvement_plateforme.wait_time = 60.0 / float(bpm) * 0.25
+	$Timer_attente_plateforme.wait_time = 60.0 / float(bpm) * 0.75
 	for i in range(8):
 		generer_plateforme(Vector2($Position_plateforme.global_position.x - i * 100,$Position_plateforme.global_position.y))
 		$Start_timer.start()
@@ -25,7 +25,7 @@ func debut_jeux():
 func init_niveau():
 	demarrer = true
 	$Timer_attente_plateforme.start()
-	#$Musique.play()
+	$Musique.play()
 
 func fin_niveau():
 	demarrer = false

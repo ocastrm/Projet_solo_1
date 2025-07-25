@@ -1,7 +1,7 @@
 extends CharacterBody2D
 var taille = 100
 var cible_x
-@onready var vitesse = get_parent().bpm / 12
+@onready var vitesse : float = float( get_parent().bpm) / 12.0
 
 
 func _physics_process(delta: float) -> void:

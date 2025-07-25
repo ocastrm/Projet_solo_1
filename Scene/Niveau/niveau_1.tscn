@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bqfw3qfm5y6kb" path="res://Scene/Niveau/Element_de_niveau/plateforme.tscn" id="2_m1cyu"]
 [ext_resource type="PackedScene" uid="uid://ber0bvccjpa3y" path="res://Scene/Niveau/Element_de_niveau/porte.tscn" id="3_dx10x"]
 [ext_resource type="PackedScene" uid="uid://c5ld65k4ylcnw" path="res://Scene/Niveau/Element_de_niveau/Obstacles/muret.tscn" id="4_f4tk7"]
-[ext_resource type="AudioStream" uid="uid://ca7wrkm2fw1ms" path="res://Asset/Musique/120_bpm/all-the-time.mp3" id="5_vwovo"]
+[ext_resource type="AudioStream" uid="uid://djcxbdlnjvlgn" path="res://Asset/Musique/170_bpm/hummingbird-game.mp3" id="5_vwovo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1cyu"]
 size = Vector2(129, 20)
@@ -17,6 +17,7 @@ script = ExtResource("1_j62dv")
 plateforme_scene = ExtResource("2_m1cyu")
 porte_scene = ExtResource("3_dx10x")
 muret_scene = ExtResource("4_f4tk7")
+bpm = 170
 
 [node name="Musique" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_vwovo")
