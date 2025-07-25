@@ -6,8 +6,9 @@ var saut = false
 
 func _physics_process(delta: float) -> void:
 	if saut == true :
-		if temps < 1 :
-			temps += delta * get_parent().bpm / 12
+		temps += delta * get_parent().bpm / 12
+		if temps > 1 :
+			temps = 1
 		sauter_frame(temps)
 
 func _input(_event: InputEvent) -> void:

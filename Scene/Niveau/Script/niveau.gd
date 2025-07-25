@@ -3,7 +3,7 @@ extends Node2D
 @export var porte_scene :PackedScene
 @export var muret_scene :PackedScene
 var demarrer = false
-@export var vague = 25
+@export var vague = 100
 @export var bpm = 120
 var vague_passe = 0
 
@@ -15,10 +15,8 @@ func _process(_delta: float) -> void:
 
 func debut_jeux():
 	$Joueur.position = $Position_joueur.position
-	$Timer_apparition_plateforme.wait_time = 0.5
-	$Timer_attente_plateforme.wait_time = 0.4
-	$Timer_attente_plateforme.stop()
-	$Timer_apparition_plateforme.stop()
+	$Timer_mouvement_plateforme.wait_time = 60.0 / float(bpm) * 0.2
+	$Timer_attente_plateforme.wait_time = 60.0 / float(bpm) * 0.8
 	for i in range(8):
 		generer_plateforme(Vector2($Position_plateforme.global_position.x - i * 100,$Position_plateforme.global_position.y))
 		$Start_timer.start()
@@ -26,12 +24,12 @@ func debut_jeux():
 
 func init_niveau():
 	demarrer = true
-	$Timer_apparition_plateforme.start()
 	$Timer_attente_plateforme.start()
+	#$Musique.play()
 
 func fin_niveau():
 	demarrer = false
-	call_deferred("recommencer_niveau")
+	recommencer_niveau()
 
 func generer_plateforme(Position):
 	var plateforme :CharacterBody2D = plateforme_scene.instantiate()
@@ -50,7 +48,6 @@ func generer_porte(Position):
 
 func verifier_action():
 	for i in $Joueur.prochaines_actions :
-		print(i)
 		if i == "sauter" :
 			$Joueur.temps = 0
 			$Joueur.saut = true
@@ -68,7 +65,7 @@ func recommencer_niveau():
 	get_tree().call_deferred("reload_current_scene")
 	
 	
-func _on_timer_apparition_plateforme_timeout() -> void:
+func _on_timer_mouvement_plateforme_timeout() -> void:
 	if vague_passe < vague :
 		generer_plateforme($Position_plateforme.global_position)
 		verifier_apparition_muret()
@@ -85,11 +82,12 @@ func _on_start_timer_timeout() -> void:
 	init_niveau()
 func _on_timer_attente_plateforme_timeout() -> void:
 	verifier_action()
+	$Timer_mouvement_plateforme.start()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	await $Timer_apparition_plateforme.timeout
+	await $Timer_mouvement_plateforme.timeout
 	body.queue_free()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	await $Timer_apparition_plateforme.timeout
+	await $Timer_mouvement_plateforme.timeout
 	area.queue_free()
